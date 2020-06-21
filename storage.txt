@@ -1,0 +1,14 @@
+Users
+Number    2
+        UserID    Harry
+	Password  Aa19860601
+	BorrowNumber 2
+	Pen 10001
+	Table 12390
+    
+	UserID    CHichi
+	Password  Cho
+	BorrowNumber 0
+
+
+
