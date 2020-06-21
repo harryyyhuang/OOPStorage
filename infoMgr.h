@@ -22,6 +22,7 @@ class infoMgr{
 public:
 
     infoMgr(){}
+    ~infoMgr();
 
     //read the storage file
     void readUserTxt();

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 #include "infoMgr.h"
 #include "user.h"
 #include "object.h"
@@ -26,6 +27,18 @@ using namespace std;
 /**********************************/
 /*  class infoMgr member function */
 /**********************************/
+
+infoMgr::~infoMgr(){
+    map<string, object*>::iterator iterObject = _objectByID.begin();
+    for(iterObject; iterObject!=_objectByID.end(); ++iterObject){
+        delete iterObject->second;
+    }
+    map<string, User*>::iterator iterUser = _users.begin();
+    for(iterUser; iterUser!=_users.end(); ++iterUser){
+        delete iterUser->second;
+    }
+}
+
 void infoMgr::readObjectTxt(){
     ifstream fin("objects.txt");
     string s;
@@ -135,6 +148,59 @@ void infoMgr::readUserTxt(){
     fin.close();
 
 
+}
+
+void
+infoMgr::writeObjectTxt(){
+    ofstream fout ;
+    fout.open("objects2.txt", ofstream::out | ofstream::trunc);
+
+    fout << "Item" << endl;
+
+    int objectMapSize = _objectByName.size();
+    fout << objectMapSize << endl;
+
+    map<string, vector<object*> >::iterator iter = _objectByName.begin();
+    for(iter ; iter!=_objectByName.end(); ++iter){
+        vector<object*> tmpobjecvec = iter->second;
+        int objectVecSize = tmpobjecvec.size();
+        fout <<  "        " << iter->first << " " << objectVecSize << endl;
+
+        for(int i = 0; i < objectVecSize; ++i){
+            fout << "            " << tmpobjecvec[i]->getObjectID() << endl;
+        }
+    }
+    fout.close();
+}
+
+void
+infoMgr::writeUserTxt(){
+    ofstream fout;
+    fout.open("storage2.txt", ofstream::out | ofstream::trunc);
+
+    fout << "Users" << endl;
+
+    int userMapSize = _users.size();
+    fout << userMapSize << endl;
+
+    map<string, User*>::iterator iter = _users.begin();
+    for(iter ; iter!=_users.end(); ++iter){
+        User* tmpuser = iter->second;
+
+        fout << "        " << left <<  setw(10) << "UserID" << tmpuser->getUserID() << endl;
+        fout << "        " << left <<  setw(10) << "Password" << tmpuser->getUserPassWord() << endl;
+
+        vector<object*> userBorrowing = tmpuser->getBorrowing();
+        int borrowingSize = userBorrowing.size();
+        fout << "        " << "BorrowNumber" << " " << borrowingSize << endl;
+        for(int i = 0; i < borrowingSize; ++i){
+            fout << "        " << userBorrowing[i]->getObjectName() << " " << userBorrowing[i]->getObjectID() << endl;
+        }
+        fout << endl;
+    }
+    
+    
+    fout.close();
 }
 
 

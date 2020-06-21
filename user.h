@@ -31,6 +31,9 @@ public:
     bool checkPassWord(string Password);
     object* returnObjectByID(string id);
     object* returnObjectByName(string objName);
+    string getUserID(){ return _userID; }
+    string getUserPassWord(){ return _passWord; }
+    vector<object*> getBorrowing(){ return _borrowing; }
 
 
 
