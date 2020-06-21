@@ -61,23 +61,6 @@ public:
 //---------------------------------------------------------------------------------------------------------
     
     
-    // //add in map
-    // void addUser(string, User*);
-
-    // //
-    // int(id) search(string object);
-    // // use id to borrow
-    // void borrow(id);
-
-    // // use id to return 
-    // void returnobj(id);
-
-    // //resgister 
-    // bool setID(string s); // make sure no same ID
-    // void setPassWord(string s);
-
-    // //login
-    // bool logID(string ID, string Password);
 
 private:
     map<string, User*> _users;
